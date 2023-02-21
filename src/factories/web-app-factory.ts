@@ -3,7 +3,6 @@ import helmet from 'helmet'
 
 import { createLogger } from './logger-factory'
 import { createSettings } from './settings-factory'
-import { rateLimiterMiddleware } from '../handlers/request-handlers/rate-limiter-middleware'
 import router from '../routes'
 
 const debug = createLogger('web-app-factory')
@@ -12,7 +11,6 @@ export const createWebApp = () => {
   const app = express()
   app
     .disable('x-powered-by')
-    .use(rateLimiterMiddleware)
     .use((req, res, next) => {
       const settings = createSettings()
 
@@ -26,7 +24,7 @@ export const createWebApp = () => {
          */
         'img-src': ["'self'", 'data:', 'https://cdn.zebedee.io/an/nostr/'],
         'connect-src': ["'self'", settings.info.relay_url as string, webRelayUrl.toString()],
-        'default-src': ['"self"'],
+        'default-src': ["'self'"],
         'script-src-attr': ["'unsafe-inline'"],
         'script-src': ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net/npm/', 'https://unpkg.com/', 'https://cdnjs.cloudflare.com/ajax/libs/'],
         'style-src': ["'self'", 'https://cdn.jsdelivr.net/npm/'],
