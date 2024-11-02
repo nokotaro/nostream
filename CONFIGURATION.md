@@ -62,7 +62,7 @@ If you've set READ_REPLICAS to 4, you should configure RR0_ through RR3_.
 
 # Settings
 
-Running `nostream` for the first time creates the settings file in `<project_root>/.nostr/settings.yaml`. If the file is not created and an error is thrown ensure that the `<project_root>/.nostr` folder exists. The configuration directory can be changed by setting the `NOSTR_CONFIG_DIR` environment variable.
+Running `nostream` for the first time creates the settings file in `<project_root>/.nostr/settings.yaml`. If the file is not created and an error is thrown ensure that the `<project_root>/.nostr` folder exists. The configuration directory can be changed by setting the `NOSTR_CONFIG_DIR` environment variable. `nostream` will pick up any changes to this settings file without needing to restart.
 
 | Name                                        | Description                                                                   |
 |---------------------------------------------|-------------------------------------------------------------------------------|
@@ -87,6 +87,8 @@ Running `nostream` for the first time creates the settings file in `<project_roo
 | paymentProcessors.lnurl.invoiceURL          | [LUD-06 Pay Request](https://github.com/lnurl/luds/blob/luds/06.md) provider URL. (e.g. https://getalby.com/lnurlp/your-username) |
 | mirroring.static[].address                  | Address of mirrored relay. (e.g. ws://100.100.100.100:8008) |
 | mirroring.static[].filters                  | Subscription filters used to mirror. |
+| mirroring.static[].limits.event                   | Event limit overrides for this mirror. See configurations under limits.event. |
+| mirroring.static[].skipAdmissionCheck       | Disable the admission fee check for events coming from this mirror. |
 | mirroring.static[].secret                   | Secret to pass to relays. Nostream relays only. Optional. |
 | workers.count                               | Number of workers to spin up to handle incoming connections. |
 |                                             | Spin workers as many CPUs are available when set to zero. Defaults to zero. |
@@ -112,3 +114,6 @@ Running `nostream` for the first time creates the settings file in `<project_roo
 | limits.message.rateLimits[].period          | Rate limit period in milliseconds. |
 | limits.message.rateLimits[].rate            | Maximum number of messages during period. |
 | limits.message.ipWhitelist                  | List of IPs (IPv4 or IPv6) to ignore rate limits. |
+| limits.admissionCheck.rateLimits[].period          | Rate limit period in milliseconds. |
+| limits.admissionCheck.rateLimits[].rate            | Maximum number of admission checks during period. |
+| limits.admissionCheck.ipWhitelist                  | List of IPs (IPv4 or IPv6) to ignore rate limits. |

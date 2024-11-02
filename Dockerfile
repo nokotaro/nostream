@@ -1,4 +1,4 @@
-FROM node:18-alpine3.16 as build
+FROM node:18-alpine3.16 AS build
 
 WORKDIR /build
 
@@ -13,7 +13,7 @@ RUN npm run build
 FROM node:18-alpine3.16
 
 LABEL org.opencontainers.image.title="Nostream"
-LABEL org.opencontainers.image.source=https://github.com/Cameri/nostream
+LABEL org.opencontainers.image.source=https://github.com/cameri/nostream
 LABEL org.opencontainers.image.description="nostream"
 LABEL org.opencontainers.image.authors="Ricardo Arturo Cabral Mejía"
 LABEL org.opencontainers.image.licenses=MIT

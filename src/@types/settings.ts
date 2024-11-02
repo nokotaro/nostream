@@ -112,8 +112,14 @@ export interface InvoiceLimits {
   ipWhitelist?: string[]
 }
 
+export interface AdmissionCheckLimits {
+  rateLimits: RateLimit[]
+  ipWhitelist?: string[]
+}
+
 export interface Limits {
   invoice?: InvoiceLimits
+  admissionCheck?: AdmissionCheckLimits
   connection?: ConnectionLimits
   client?: ClientLimits
   event?: EventLimits
@@ -197,6 +203,10 @@ export interface Mirror {
   address: string
   filters?: SubscriptionFilter[]
   secret?: Secret
+  limits?: {
+    event?: EventLimits
+  }
+  skipAdmissionCheck?: boolean
 }
 
 export interface Mirroring {
